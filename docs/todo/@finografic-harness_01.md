@@ -1,3 +1,5 @@
+# @finografic/harness — v0 Drop-In Plan
+
 Good call bringing it back here — this is exactly the moment to **ship v0, not think more**.
 
 Below is a **drop-in, minimal, working v0** for `@finografic/harness`.
@@ -9,11 +11,11 @@ Below is a **drop-in, minimal, working v0** for `@finografic/harness`.
 
 ---
 
-# 📦 `@finografic/harness` — v0 implementation
+## 📦 `@finografic/harness` — v0 implementation
 
 ---
 
-## `src/core/context.ts`
+### `src/core/context.ts`
 
 ```ts
 export interface HarnessTrace {
@@ -44,7 +46,7 @@ export function createContext(cwd: string): HarnessContext {
 
 ---
 
-## `src/core/types.ts`
+### `src/core/types.ts`
 
 ```ts
 export interface HarnessStep<I, O> {
@@ -60,7 +62,7 @@ export interface HarnessPipeline {
 
 ---
 
-## `src/core/pipeline.ts`
+### `src/core/pipeline.ts`
 
 ```ts
 import { createContext, HarnessContext } from "./context"
@@ -94,7 +96,7 @@ export function createPipeline(steps: HarnessStep<any, any>[]): HarnessPipeline 
 
 ---
 
-## `src/utils/exec.ts`
+### `src/utils/exec.ts`
 
 ```ts
 import { exec } from "node:child_process"
@@ -124,7 +126,7 @@ export async function runCommand(
 
 ---
 
-## `src/utils/fs.ts`
+### `src/utils/fs.ts`
 
 ```ts
 import { readFile } from "node:fs/promises"
@@ -136,11 +138,11 @@ export async function readFileSafe(path: string): Promise<string> {
 
 ---
 
-# 🧩 STEPS
+## 🧩 STEPS
 
 ---
 
-## `src/steps/run-typecheck.ts`
+### `src/steps/run-typecheck.ts`
 
 ```ts
 import { HarnessStep } from "../core/types"
@@ -165,7 +167,7 @@ export const runTypecheckStep: HarnessStep<unknown, TypecheckResult> = {
 
 ---
 
-## `src/steps/extract-errors.ts`
+### `src/steps/extract-errors.ts`
 
 ```ts
 import { HarnessStep } from "../core/types"
@@ -209,7 +211,7 @@ export const extractErrorsStep: HarnessStep<
 
 ---
 
-## `src/steps/slice-code.ts`
+### `src/steps/slice-code.ts`
 
 ```ts
 import path from "node:path"
@@ -275,7 +277,7 @@ export const sliceCodeStep: HarnessStep<
 
 ---
 
-## `src/steps/structure-debug.ts`
+### `src/steps/structure-debug.ts`
 
 ```ts
 import { HarnessStep } from "../core/types"
@@ -307,7 +309,7 @@ export const structureDebugStep: HarnessStep<
 
 ---
 
-## `src/steps/call-llm.ts` (stub for now)
+### `src/steps/call-llm.ts` (stub for now)
 
 ```ts
 import { HarnessStep } from "../core/types"
@@ -330,11 +332,11 @@ export const callLLMStep: HarnessStep<any, LLMResult> = {
 
 ---
 
-# 🔗 PIPELINE
+## 🔗 PIPELINE
 
 ---
 
-## `src/pipelines/debug.pipeline.ts`
+### `src/pipelines/debug.pipeline.ts`
 
 ```ts
 import { createPipeline } from "../core/pipeline"
@@ -355,11 +357,11 @@ export const debugPipeline = createPipeline([
 
 ---
 
-# 🧪 Example usage
+## 🧪 Example usage
 
 ---
 
-## `src/index.ts`
+### `src/index.ts`
 
 ```ts
 import { debugPipeline } from "./pipelines/debug.pipeline"
@@ -378,7 +380,7 @@ main().catch((err) => {
 
 ---
 
-# ✅ What you now have
+## ✅ What you now have
 
 This is not theory anymore.
 
@@ -392,7 +394,7 @@ You now have:
 
 ---
 
-# 🚀 Immediate next moves (DO THIS IN ORDER)
+## 🚀 Immediate next moves (DO THIS IN ORDER)
 
 ### 1. Run it
 
@@ -415,7 +417,7 @@ Add **real LLM step OR Claude CLI injection**
 
 ---
 
-# 🧠 Final note (important)
+## 🧠 Final note (important)
 
 This is already:
 

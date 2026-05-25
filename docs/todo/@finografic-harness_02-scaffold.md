@@ -1,3 +1,5 @@
+# @finografic/harness — Scaffold Guide
+
 You _can_ use Claude Code to scaffold this — just don’t fall back into letting it “figure things out”.
 
 You want:
@@ -6,9 +8,9 @@ You want:
 
 ---
 
-# The correct way to use Claude Code here
+## The correct way to use Claude Code here
 
-## ❌ Don’t do this
+### ❌ Don’t do this
 
 ```txt
 “build me a harness package based on our discussion”
@@ -23,7 +25,7 @@ That triggers:
 
 ---
 
-## ✅ Do this instead (critical pattern)
+### ✅ Do this instead (critical pattern)
 
 You give Claude:
 
@@ -35,9 +37,9 @@ You give Claude:
 
 ---
 
-# Step-by-step (clean workflow)
+## Step-by-step (clean workflow)
 
-## 1. Create empty package yourself
+### 1. Create empty package yourself
 
 ```bash
 pnpm create package @finografic/harness
@@ -57,7 +59,7 @@ src/
 
 ---
 
-## 2. Open Claude Code in THAT folder only
+### 2. Open Claude Code in THAT folder only
 
 This is important.
 
@@ -66,7 +68,7 @@ This is important.
 
 ---
 
-## 3. Use THIS prompt (copy exactly)
+### 3. Use THIS prompt (copy exactly)
 
 We are scaffolding a minimal package.
 
@@ -108,7 +110,7 @@ Return ONLY the file content.
 
 ---
 
-## 4. Then iterate file-by-file
+### 4. Then iterate file-by-file
 
 Next prompt:
 
@@ -142,7 +144,7 @@ Return ONLY the file content.
 
 ---
 
-# Why this works (important)
+## Why this works (important)
 
 You are:
 
@@ -154,7 +156,7 @@ You are:
 
 ---
 
-# Optional (faster but still safe)
+## Optional (faster but still safe)
 
 If you want to speed up:
 
@@ -175,7 +177,7 @@ Return each file clearly separated.
 
 ---
 
-# ⚠️ What to watch for (Claude failure modes)
+## ⚠️ What to watch for (Claude failure modes)
 
 Even with constraints, Claude may try to:
 
@@ -210,7 +212,7 @@ Do not change architecture. Follow instructions exactly.
 
 ---
 
-# The “tight loop” workflow (best practice)
+## The “tight loop” workflow (best practice)
 
 For each file:
 
@@ -223,7 +225,7 @@ For each file:
 
 ---
 
-# Where Claude Code actually shines here
+## Where Claude Code actually shines here
 
 - writing boilerplate quickly
 - small refactors
@@ -232,7 +234,7 @@ For each file:
 
 ---
 
-# Where you stay in control
+## Where you stay in control
 
 - architecture
 - step boundaries
@@ -241,7 +243,7 @@ For each file:
 
 ---
 
-# Bonus: your “pin” idea (CLI injection) — minimal version
+## Bonus: your “pin” idea (CLI injection) — minimal version
 
 Once you have structure step working:
 
@@ -260,7 +262,7 @@ But:
 
 ---
 
-# Blunt advice (based on your usage patterns)
+## Blunt advice (based on your usage patterns)
 
 If you let Claude:
 
@@ -276,6 +278,6 @@ You’ll move fast _and_ stay clean.
 
 ---
 
-# If you want
+## If you want
 
 I can generate a **Claude-ready prompt sequence (10–12 steps)** so you can just paste → paste → paste and scaffold the entire package cleanly.
