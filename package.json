@@ -2,7 +2,6 @@
   "name": "@finografic/ai-harness",
   "type": "module",
   "version": "0.0.0",
-  "packageManager": "pnpm@10.8.0",
   "description": "Deterministic, composable harness pipeline for preprocessing inputs before LLM usage. Extract → reduce → structure → (optional) LLM.",
   "homepage": "https://github.com/finografic/ai-harness",
   "repository": {
@@ -86,6 +85,7 @@
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   },
+  "packageManager": "pnpm@10.33.0",
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mjs,cjs}": [
       "oxfmt --no-error-on-unmatched-pattern",
