@@ -49,6 +49,8 @@
     "·········· LINTING": "···················································",
     "lint": "oxlint -c oxlint.config.ts",
     "lint:fix": "oxlint -c oxlint.config.ts --fix",
+    "lint:md": "md-lint",
+    "lint:md:fix": "md-lint --fix",
     "lint:ci": "oxlint -c oxlint.config.ts --quiet",
     "·········· FORMATTING": "················································",
     "format:check": "oxfmt --check",
@@ -73,6 +75,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
+    "@finografic/md-lint": "^0.9.6",
     "@finografic/oxc-config": "^2.0.0",
     "@types/node": "^24.0.0",
     "globals": "^17.3.0",
@@ -93,7 +96,7 @@
     ],
     "*.md": [
       "oxfmt --no-error-on-unmatched-pattern",
-      "oxlint -c oxlint.config.ts --fix --no-error-on-unmatched-pattern"
+      "md-lint --fix"
     ],
     "*.{json,jsonc,yml,yaml,toml}": [
       "oxfmt --no-error-on-unmatched-pattern"
