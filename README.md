@@ -1,39 +1,50 @@
-# @finografic/harness
+# `@finografic/ai-harness`
 
-> Deterministic, composable harness pipeline for preprocessing inputs before LLM usage. Extract → reduce → structure → (optional) LLM.
+Deterministic, composable harness primitives for preprocessing and inspecting inputs before
+LLM usage.
 
 ## Installation
 
 ```bash
-pnpm add @finografic/harness
+pnpm add @finografic/ai-harness
 ```
+
+## v0 Scope
+
+This package currently ships a small explicit core:
+
+- `createContext()` for cwd + trace + step budget state
+- `createPipeline()` for sequential step execution
+- `runTypecheckStep` for local TypeScript command execution
+- `extractErrorsStep` for parsing `tsc` output
+- `createSliceCodeStep()` for attaching local code excerpts to parsed errors
 
 ## Usage
 
-```typescript
-import {} from '@finografic/harness';
+```ts
+import {
+  createContext,
+  createPipeline,
+  createSliceCodeStep,
+  extractErrorsStep,
+  runTypecheckStep,
+} from '@finografic/ai-harness';
+
+const pipeline = createPipeline({
+  steps: [runTypecheckStep, extractErrorsStep, createSliceCodeStep()],
+});
+
+const result = await pipeline.run(undefined, createContext({ cwd: process.cwd() }));
 ```
 
 ## Development
 
 ```bash
-# Install dependencies (automatically sets up git hooks)
-pnpm install
-
-# Run in development mode
-pnpm dev
-
-# Build
 pnpm build
-
-# Run tests
-pnpm test:run
-
-# Lint
 pnpm lint
+pnpm typecheck
+pnpm test:run
 ```
-
-**Note:** Git hooks are automatically configured on `pnpm install`. See [docs/DEVELOPER_WORKFLOW.md](./docs/DEVELOPER_WORKFLOW.md) for the complete workflow.
 
 ## License
 

@@ -1,10 +1,10 @@
-You *can* use Claude Code to scaffold this — just don’t fall back into letting it “figure things out”.
+You _can_ use Claude Code to scaffold this — just don’t fall back into letting it “figure things out”.
 
 You want:
 
 > **Claude as a code generator, not a repo explorer**
 
-------
+---
 
 # The correct way to use Claude Code here
 
@@ -21,7 +21,7 @@ That triggers:
 - over-engineering
 - subagents
 
-------
+---
 
 ## ✅ Do this instead (critical pattern)
 
@@ -31,9 +31,9 @@ You give Claude:
 2. **Exact constraints**
 3. **File-by-file generation**
 
-👉 You *drive*, Claude *types*
+👉 You _drive_, Claude _types_
 
-------
+---
 
 # Step-by-step (clean workflow)
 
@@ -55,7 +55,7 @@ src/
   utils/
 ```
 
-------
+---
 
 ## 2. Open Claude Code in THAT folder only
 
@@ -64,11 +64,9 @@ This is important.
 👉 Do NOT open from monorepo root
 👉 Do NOT give access to other repos
 
-------
+---
 
 ## 3. Use THIS prompt (copy exactly)
-
-
 
 We are scaffolding a minimal package.
 
@@ -108,9 +106,7 @@ Requirements:
 Return ONLY the file content.
 ```
 
-
-
-------
+---
 
 ## 4. Then iterate file-by-file
 
@@ -144,7 +140,7 @@ Return ONLY the file content.
 
 …and so on.
 
-------
+---
 
 # Why this works (important)
 
@@ -156,7 +152,7 @@ You are:
 
 👉 Claude becomes a **deterministic code emitter**
 
-------
+---
 
 # Optional (faster but still safe)
 
@@ -177,7 +173,7 @@ Requirements:
 Return each file clearly separated.
 ```
 
-------
+---
 
 # ⚠️ What to watch for (Claude failure modes)
 
@@ -192,7 +188,7 @@ PipelineBuilder()
 
 👉 Reject immediately
 
-------
+---
 
 ### 2. Add “helpful” features
 
@@ -202,7 +198,7 @@ PipelineBuilder()
 
 👉 Reject
 
-------
+---
 
 ### 3. Change your design
 
@@ -212,7 +208,7 @@ PipelineBuilder()
 Do not change architecture. Follow instructions exactly.
 ```
 
-------
+---
 
 # The “tight loop” workflow (best practice)
 
@@ -225,7 +221,7 @@ For each file:
 
 👉 repeat
 
-------
+---
 
 # Where Claude Code actually shines here
 
@@ -234,7 +230,7 @@ For each file:
 - fixing type errors
 - generating repetitive step code
 
-------
+---
 
 # Where you stay in control
 
@@ -243,7 +239,7 @@ For each file:
 - pipeline design
 - what gets built
 
-------
+---
 
 # Bonus: your “pin” idea (CLI injection) — minimal version
 
@@ -262,7 +258,7 @@ But:
 👉 Only after your pipeline is stable
 👉 Not during scaffolding
 
-------
+---
 
 # Blunt advice (based on your usage patterns)
 
@@ -276,9 +272,9 @@ If you use Claude to:
 
 > “write exactly this file”
 
-You’ll move fast *and* stay clean.
+You’ll move fast _and_ stay clean.
 
-------
+---
 
 # If you want
 
