@@ -1,16 +1,16 @@
 {
-  "name": "@finografic/harness",
+  "name": "@finografic/ai-harness",
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@10.8.0",
   "description": "Deterministic, composable harness pipeline for preprocessing inputs before LLM usage. Extract → reduce → structure → (optional) LLM.",
-  "homepage": "https://github.com/finografic/harness",
+  "homepage": "https://github.com/finografic/ai-harness",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/finografic/harness.git"
+    "url": "git+https://github.com/finografic/ai-harness.git"
   },
   "bugs": {
-    "url": "https://github.com/finografic/harness/issues"
+    "url": "https://github.com/finografic/ai-harness/issues"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -61,7 +61,7 @@
     "release:check": "pnpm lint:fix && pnpm typecheck && pnpm test:run",
     "release:publish": "pnpm publish --registry https://npm.pkg.github.com",
     "·········· REGISTRIES": "················································",
-    "view:registry:github": "pnpm view @finografic/harness --registry=https://npm.pkg.github.com",
+    "view:registry:github": "pnpm view @finografic/ai-harness --registry=https://npm.pkg.github.com",
     "·········· PACKAGES": "··················································",
     "update:oxc-config": "pnpm update @finografic/oxc-config --latest && pnpm update oxfmt --latest && pnpm update oxlint --latest",
     "update:deps:all": "pnpm update --latest",
