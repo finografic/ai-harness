@@ -53,16 +53,16 @@ The package currently includes:
 - `src/steps/run-typecheck.ts`
 - `src/steps/extract-errors.ts`
 - `src/steps/slice-code.ts`
+- `src/steps/structure-debug.ts`
+- `src/pipelines/debug.pipeline.ts`
 - package exports in `src/index.ts`
-- a basic pipeline test
+- focused tests for the pipeline pieces
 
 ## What did not ship yet
 
 These ideas were present in the original notes but are still pending:
 
-- `structure-debug` step
 - `call-llm` step, if still justified
-- a composed pipeline under `src/pipelines/`
 - an opinionated runnable example entrypoint
 
 ## Testing guidance from the original v0 discussion
@@ -81,9 +81,11 @@ The project is past “empty scaffold” status, but still before the first full
 Current status:
 
 - core primitives exist
+- one real composed debug pipeline exists
 - package verification is working
 - CI and environment issues were cleaned up
-- the first real end-to-end use case is still the next important decision
+- the next important decision is whether to deepen the debug track or pivot toward broader
+  harness preparation work
 
 ## Design boundary
 

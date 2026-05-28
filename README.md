@@ -18,23 +18,18 @@ This package currently ships a small explicit core:
 - `runTypecheckStep` for local TypeScript command execution
 - `extractErrorsStep` for parsing `tsc` output
 - `createSliceCodeStep()` for attaching local code excerpts to parsed errors
+- `structureDebugStep` for producing a structured debug payload
+- `debugPipeline` as the first composed end-to-end workflow
 
 ## Usage
 
 ```ts
 import {
   createContext,
-  createPipeline,
-  createSliceCodeStep,
-  extractErrorsStep,
-  runTypecheckStep,
+  debugPipeline,
 } from '@finografic/ai-harness';
 
-const pipeline = createPipeline({
-  steps: [runTypecheckStep, extractErrorsStep, createSliceCodeStep()],
-});
-
-const result = await pipeline.run(undefined, createContext({ cwd: process.cwd() }));
+const result = await debugPipeline.run(undefined, createContext({ cwd: process.cwd() }));
 ```
 
 ## Development

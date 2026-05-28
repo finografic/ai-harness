@@ -108,4 +108,3 @@ Do not change the architecture. Follow instructions exactly.
 - package boundaries
 - pipeline composition
 - what is intentionally deferred
-

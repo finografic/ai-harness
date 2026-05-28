@@ -29,37 +29,29 @@ _Nothing active right now._
 
 ## P1 — Next Up
 
-### 1. Complete the first composed debug pipeline
+### 1. Validate the debug pipeline inside the LLAAB consumer flow
 
-The package ships the v0 primitives already, but not the higher-level assembled workflow.
-Finish the first end-to-end pipeline on top of the current core:
+The first composed debug pipeline now exists in this package. The next useful step is to validate
+it from the real consumer side:
 
-- add a `structure-debug` step
-- decide whether a stub `call-llm` step is still useful or just noise
-- add a composed debug pipeline under `src/pipelines/`
-- decide whether the package should expose an example runnable entry or stay library-only
-
-Scope should stay explicit and deterministic. Do not add abstraction layers just to look
-"framework-ready."
+- install or wire it into the LLAAB monorepo
+- confirm the exported debug payload shape is useful in practice
+- identify any missing fields before adding more abstraction
 
 Reference: [`../HARNESS_V0_REFERENCE.md`](../HARNESS_V0_REFERENCE.md)
-Detail: [`./TODO_DEBUG_PIPELINE.md`](./TODO_DEBUG_PIPELINE.md)
+Detail: [`./DONE_DEBUG_PIPELINE.md`](./DONE_DEBUG_PIPELINE.md)
 
-### 2. Decide the first real harness use case
+### 2. Decide the next primary harness track
 
-The current scaffold proves the package shape. Next we need to choose the first real technical
-driver so the package does not drift into generic tooling. Candidate directions implied by the
-original notes:
+Now that the first real use case has landed, choose the next track intentionally:
 
-- typecheck/debug assistance pipeline
-- structured preprocessing before LLM usage
-- transcript or long-input preparation pipeline aligned with the larger LLAAB direction
+- deepen the typecheck/debug workflow
+- add more generic preprocessing utilities
+- move toward long-input preparation aligned with the broader LLAAB harness direction
 
 Consumer context matters here: this package is intended to be installed and used by the larger
-LLAAB monorepo, so the first real use case should be chosen based on the consumer integration
-path rather than on standalone package neatness.
-
-This choice should drive the next concrete API additions.
+LLAAB monorepo, so the next track should be chosen based on the consumer integration path rather
+than on standalone package neatness.
 
 ---
 
@@ -109,10 +101,11 @@ Potential future step groups, only after the first real use case is proven:
 
 ## Done
 
-| Date       | Item                                                                                      |
-| ---------- | ----------------------------------------------------------------------------------------- |
-| 2026-05-28 | Added explicit debug-pipeline detail doc and folded in LLAAB consumer context              |
-| 2026-05-28 | Roadmap consolidated; scaffold/todo notes moved into reference docs under `docs/`         |
-| 2026-05-28 | Environment bootstrap documented in `CODEX.md`; Codex setup script corrected              |
-| 2026-05-28 | Markdown/CI follow-up completed; todo docs reformatted; CI passing                        |
-| 2026-05-26 | v0 scaffold shipped — context, pipeline, core steps, exports, test, and README alignment |
+| Date       | Item                                                                                         |
+| ---------- | -------------------------------------------------------------------------------------------- |
+| 2026-05-28 | First composed debug pipeline shipped — [`DONE_DEBUG_PIPELINE.md`](./DONE_DEBUG_PIPELINE.md) |
+| 2026-05-28 | Added explicit debug-pipeline detail doc and folded in LLAAB consumer context                |
+| 2026-05-28 | Roadmap consolidated; scaffold/todo notes moved into reference docs under `docs/`            |
+| 2026-05-28 | Environment bootstrap documented in `CODEX.md`; Codex setup script corrected                 |
+| 2026-05-28 | Markdown/CI follow-up completed; todo docs reformatted; CI passing                           |
+| 2026-05-26 | v0 scaffold shipped — context, pipeline, core steps, exports, test, and README alignment     |
