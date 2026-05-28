@@ -1,7 +1,14 @@
 # `@finografic/ai-harness`
 
-Deterministic, composable harness primitives for preprocessing and inspecting inputs before
-LLM usage.
+Small, deterministic pipeline primitives for preparing and structuring data before optional LLM
+usage.
+
+The package is intentionally narrow:
+
+- compose async steps in order
+- keep runtime context explicit
+- turn noisy inputs into structured payloads
+- stay useful even when no model call is involved
 
 ## Installation
 
@@ -9,36 +16,108 @@ LLM usage.
 pnpm add @finografic/ai-harness
 ```
 
-## v0 Scope
+## What it includes
 
-This package currently ships a small explicit core:
+Current public surface:
 
-- `createContext()` for cwd + trace + step budget state
-- `createPipeline()` for sequential step execution
+- `createContext()` for runtime state such as `cwd`, `trace`, and step budget
+- `createPipeline()` for composing explicit sequential workflows
 - `runTypecheckStep` for local TypeScript command execution
 - `extractErrorsStep` for parsing `tsc` output
-- `createSliceCodeStep()` for attaching local code excerpts to parsed errors
+- `createSliceCodeStep()` for attaching local source excerpts
 - `structureDebugStep` for producing a structured debug payload
-- `debugPipeline` as the first composed end-to-end workflow
+- `debugPipeline` as the first ready-made composed workflow
 
-## Usage
+## Quick start
+
+Use the built-in debug pipeline to turn `pnpm typecheck` output into structured JSON:
+
+```ts
+import { createContext, debugPipeline } from '@finografic/ai-harness';
+
+const result = await debugPipeline.run(undefined, createContext({ cwd: process.cwd() }));
+
+console.log(JSON.stringify(result, null, 2));
+```
+
+The resulting payload is shaped like:
+
+```ts
+{
+  task: 'fix-type-errors',
+  errors: [
+    {
+      file: 'src/example.ts',
+      absoluteFilePath: '/absolute/path/to/src/example.ts',
+      line: 12,
+      column: 7,
+      code: 'TS2322',
+      message: 'Type ... is not assignable to type ...',
+      snippet: '  11 | ...\n  12 | ...\n  13 | ...'
+    }
+  ]
+}
+```
+
+## Configuration
+
+The package keeps configuration minimal.
+
+### `createContext({ cwd })`
+
+- `cwd`: working directory used by steps that read files or run local commands
+
+### `createSliceCodeStep({ contextLines })`
+
+- `contextLines`: number of surrounding lines to include on either side of the failing line
+- default: `3`
+
+## Composing your own pipeline
+
+You can compose the exported steps yourself when you need a different flow:
 
 ```ts
 import {
   createContext,
-  debugPipeline,
+  createPipeline,
+  createSliceCodeStep,
+  extractErrorsStep,
+  runTypecheckStep,
+  structureDebugStep,
 } from '@finografic/ai-harness';
 
-const result = await debugPipeline.run(undefined, createContext({ cwd: process.cwd() }));
+const pipeline = createPipeline({
+  steps: [runTypecheckStep, extractErrorsStep, createSliceCodeStep({ contextLines: 2 }), structureDebugStep],
+});
+
+const result = await pipeline.run(undefined, createContext({ cwd: process.cwd() }));
 ```
+
+## Current scope
+
+This package currently focuses on deterministic preprocessing and structuring.
+
+Intentionally not included yet:
+
+- model routing
+- token budgeting beyond the current step counter stub
+- AST-heavy analysis
+- CLI entrypoints
+
+## Further reading
+
+- roadmap: [docs/todo/ROADMAP.md](./docs/todo/ROADMAP.md)
+- v0 reference: [docs/HARNESS_V0_REFERENCE.md](./docs/HARNESS_V0_REFERENCE.md)
+- Codex/scaffold guidance: [docs/BUILDING_WITH_CODEX.md](./docs/BUILDING_WITH_CODEX.md)
 
 ## Development
 
 ```bash
-pnpm build
+pnpm format:check
 pnpm lint
 pnpm typecheck
 pnpm test:run
+pnpm build
 ```
 
 ## License
