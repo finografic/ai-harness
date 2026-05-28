@@ -43,6 +43,7 @@ Scope should stay explicit and deterministic. Do not add abstraction layers just
 "framework-ready."
 
 Reference: [`../HARNESS_V0_REFERENCE.md`](../HARNESS_V0_REFERENCE.md)
+Detail: [`./TODO_DEBUG_PIPELINE.md`](./TODO_DEBUG_PIPELINE.md)
 
 ### 2. Decide the first real harness use case
 
@@ -53,6 +54,10 @@ original notes:
 - typecheck/debug assistance pipeline
 - structured preprocessing before LLM usage
 - transcript or long-input preparation pipeline aligned with the larger LLAAB direction
+
+Consumer context matters here: this package is intended to be installed and used by the larger
+LLAAB monorepo, so the first real use case should be chosen based on the consumer integration
+path rather than on standalone package neatness.
 
 This choice should drive the next concrete API additions.
 
@@ -106,6 +111,7 @@ Potential future step groups, only after the first real use case is proven:
 
 | Date       | Item                                                                                      |
 | ---------- | ----------------------------------------------------------------------------------------- |
+| 2026-05-28 | Added explicit debug-pipeline detail doc and folded in LLAAB consumer context              |
 | 2026-05-28 | Roadmap consolidated; scaffold/todo notes moved into reference docs under `docs/`         |
 | 2026-05-28 | Environment bootstrap documented in `CODEX.md`; Codex setup script corrected              |
 | 2026-05-28 | Markdown/CI follow-up completed; todo docs reformatted; CI passing                        |

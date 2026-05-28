@@ -22,6 +22,25 @@ run-typecheck
 → optional call-llm
 ```
 
+## Compressed v0 rules
+
+The strongest parts of the original design guidance were the constraints:
+
+### Build now
+
+- one real debug pipeline
+- boring deterministic steps
+- loose-enough types to keep moving
+- step budget as a stub, not full token accounting
+
+### Do not build yet
+
+- generic factories
+- multiple pipeline families
+- AST-heavy logic
+- model routing
+- generic “perfect” abstraction layers
+
 ## What shipped
 
 The package currently includes:
@@ -46,6 +65,15 @@ These ideas were present in the original notes but are still pending:
 - a composed pipeline under `src/pipelines/`
 - an opinionated runnable example entrypoint
 
+## Testing guidance from the original v0 discussion
+
+The original implementation guidance was intentionally narrow:
+
+- test `extract-errors`
+- test `slice-code`
+- do not spend early momentum on heavyweight integration tests unless the first real workflow
+  requires them
+
 ## Practical interpretation
 
 The project is past “empty scaffold” status, but still before the first full workflow.
@@ -65,5 +93,9 @@ The useful part of the original v0 proposal was its restraint:
 - composable over deeply abstract
 - deterministic first
 - LLM integration only when the non-LLM path is already clear
+
+Short version:
+
+> Structure is the product. LLM is optional.
 
 That should remain the default unless the project proves a stronger need.
