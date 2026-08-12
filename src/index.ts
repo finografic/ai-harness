@@ -14,7 +14,12 @@ export type {
 } from './core/context';
 
 export { createDynamicPipeline, createPipeline, HarnessRunError } from './core/pipeline';
-export type { CreateDynamicPipelineParams, CreatePipelineParams, HarnessStepTuple } from './core/pipeline';
+export type {
+  CreateDynamicPipelineParams,
+  CreateEmptyPipelineParams,
+  CreatePipelineParams,
+  HarnessStepTuple,
+} from './core/pipeline';
 
 export type {
   AnyHarnessStep,

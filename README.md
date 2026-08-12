@@ -122,4 +122,4 @@ pnpm build
 
 ## License
 
-MIT © Justin Rankin
+MIT © [Justin Rankin](https://github.com/finografic)

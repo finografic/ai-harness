@@ -74,6 +74,12 @@ describe('createPipeline', () => {
     expect(result).toEqual({ value: 42 });
   });
 
+  it('retains the v0 identity behaviour for an empty pipeline', async () => {
+    const pipeline = createPipeline({ steps: [] });
+
+    await expect(pipeline.run({ unchanged: true })).resolves.toEqual({ unchanged: true });
+  });
+
   it('rejects incompatible adjacent steps at typecheck time', () => {
     const numberStep: HarnessStep<number, number> = {
       name: 'number',

@@ -53,6 +53,10 @@ export interface CreatePipelineParams<Steps extends HarnessStepTuple> {
   steps: ComposableSteps<Steps>;
 }
 
+export interface CreateEmptyPipelineParams {
+  steps: readonly [];
+}
+
 export interface CreateDynamicPipelineParams {
   steps: readonly DynamicHarnessStep[];
 }
@@ -357,19 +361,21 @@ async function runSteps(
   }
 }
 
+export function createPipeline({
+  steps,
+}: CreateEmptyPipelineParams): HarnessPipeline<unknown, unknown, readonly []>;
 export function createPipeline<const Steps extends HarnessStepTuple>({
   steps,
-}: CreatePipelineParams<Steps>): HarnessPipeline<PipelineInput<Steps>, PipelineOutput<Steps>, Steps> {
+}: CreatePipelineParams<Steps>): HarnessPipeline<PipelineInput<Steps>, PipelineOutput<Steps>, Steps>;
+export function createPipeline({
+  steps,
+}: CreateEmptyPipelineParams | CreatePipelineParams<HarnessStepTuple>): HarnessPipeline {
   const runnableSteps = steps as readonly DynamicHarnessStep[];
 
   return {
     steps,
-    async run(
-      input: PipelineInput<Steps>,
-      context?: HarnessContext,
-      options?: HarnessRunOptions,
-    ): Promise<PipelineOutput<Steps>> {
-      return runSteps(runnableSteps, input, context, options) as Promise<PipelineOutput<Steps>>;
+    async run(input: unknown, context?: HarnessContext, options?: HarnessRunOptions): Promise<unknown> {
+      return runSteps(runnableSteps, input, context, options);
     },
   };
 }

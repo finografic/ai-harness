@@ -23,13 +23,21 @@ Reusable implementation guidance should live in `docs/`, not here.
 
 ## P0 — Active
 
-_Nothing active right now._
+### 1. Release Context Pipeline v1 and migrate the LLAAB consumer
+
+The package-owned implementation is complete and verified locally. The remaining consumer phase is
+release-gated: publish an explicitly approved new package version, update LLAAB's dependency, then
+migrate extraction preparation to the new token, chunk, context-pack, typed-pipeline, and event
+contracts.
+
+Detail: [`./TODO_CONTEXT_PIPELINE_V1.md`](./TODO_CONTEXT_PIPELINE_V1.md)
+Guide: [`../CONTEXT_PIPELINE_V1.md`](../CONTEXT_PIPELINE_V1.md)
 
 ---
 
 ## P1 — Next Up
 
-### 1. Validate the debug pipeline inside the LLAAB consumer flow
+### 2. Validate the debug pipeline inside the LLAAB consumer flow
 
 The first composed debug pipeline now exists in this package. The next useful step is to validate
 it from the real consumer side:
@@ -41,7 +49,7 @@ it from the real consumer side:
 Reference: [`../HARNESS_V0_REFERENCE.md`](../HARNESS_V0_REFERENCE.md)
 Detail: [`./DONE_DEBUG_PIPELINE.md`](./DONE_DEBUG_PIPELINE.md)
 
-### 2. Decide the next primary harness track
+### 3. Decide the next primary harness track
 
 Now that the first real use case has landed, choose the next track intentionally:
 
@@ -57,7 +65,7 @@ than on standalone package neatness.
 
 ## P2 — Planned
 
-### 3. Long-input harness direction
+### 4. Long-input harness direction
 
 If this package becomes the reusable version of the broader harness idea, the next major layer is
 around input preparation before model execution:
@@ -67,9 +75,10 @@ around input preparation before model execution:
 - structured context assembly
 - deterministic routing or selection decisions
 
-This is still directional, not yet committed to a concrete API in this package.
+The package-side API is implemented by Context Pipeline v1. Keep this item until the published API
+has been validated through LLAAB's real extraction flow.
 
-### 4. Developer environment resilience
+### 5. Developer environment resilience
 
 Most of the friction so far has been environment/runtime setup rather than package code. Revisit
 only if the problem recurs:

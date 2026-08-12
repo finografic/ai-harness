@@ -1,6 +1,6 @@
 # TODO — Context Pipeline v1
 
-> **Status:** Not started.
+> **Status:** Package implementation complete; LLAAB consumer migration is release-gated.
 >
 > 📅 Aug 11, 2026.
 
@@ -271,23 +271,27 @@ Define a small set of data contracts before extracting algorithms:
 
 ## Phase 5 — Extract the Proven LLAAB Preparation Logic
 
-- [ ] Keep Ollama model discovery and application model selection in LLAAB.
+> **Release gate:** LLAAB currently declares published `@finografic/ai-harness@0.1.0`. Committing
+> consumer code against this unreleased API would leave a fresh LLAAB checkout unable to typecheck
+> or run. Package versioning and publishing require separate explicit approval.
+
+- [x] Keep Ollama model discovery and application model selection in LLAAB.
 - [ ] Have LLAAB supply the resolved context limit and, when available, a token counter.
 - [ ] Replace LLAAB's local character estimator with the harness counter contract while preserving
       an explicitly labelled fallback.
-- [ ] Move only generic, proven chunking and pack-building behaviour into this package.
-- [ ] Keep extraction prompt shape and schema-specific fields in LLAAB.
+- [x] Move only generic, proven chunking and pack-building behaviour into this package.
+- [x] Keep extraction prompt shape and schema-specific fields in LLAAB.
 - [ ] Replace the final `as PreparedExtractionInput` cast with inferred pipeline output.
 - [ ] Map harness events to LLAAB control events or retire the duplicated manual lifecycle events.
 - [ ] Compare old and new outputs using real short-article and long-article fixtures.
-- [ ] Verify that the model-facing call remains behind LLAAB's existing control and routing
+- [x] Verify that the model-facing call remains behind LLAAB's existing control and routing
       boundary.
 
 ### Exit criteria
 
 - [ ] LLAAB's short-input and chunked-input tests pass without a result cast.
 - [ ] Context-window calculations preserve response reserve and model-specific limits.
-- [ ] No provider SDK, extraction schema, or LLAAB control policy has moved into the harness.
+- [x] No provider SDK, extraction schema, or LLAAB control policy has moved into the harness.
 - [ ] The package API is validated by a real consumer before further generalisation.
 
 ## Phase 6 — Evaluation and Observability Fixtures ✅
@@ -304,9 +308,9 @@ Define a small set of data contracts before extracting algorithms:
 - [x] Normalise nondeterministic fields before snapshots rather than omitting useful lifecycle data.
 - [x] Define a privacy test proving default run records exclude raw context, working paths, and
       command output.
-- [x] Defer an OpenTelemetry adapter until the internal event contract is proven in a consumer and
-      the
-      target semantic conventions are sufficiently stable.
+- [x] Defer an OpenTelemetry adapter until both conditions hold:
+  - the internal event contract is proven in a consumer
+  - the target semantic conventions are sufficiently stable
 
 ## Explicit Non-Goals
 
@@ -352,24 +356,24 @@ typecheck. Record package and consumer verification separately.
 
 ## Completion Criteria
 
-- [ ] Pipeline composition is type-safe from first input to final output.
-- [ ] Limits constrain execution; usage reports what actually happened.
-- [ ] Cancellation and typed failures preserve partial run evidence.
-- [ ] Default process and file adapters are bounded and safe.
-- [ ] Context packs expose provenance, deterministic selection, costs, and drop reasons.
-- [ ] Approximate token counts are visibly approximate.
+- [x] Pipeline composition is type-safe from first input to final output.
+- [x] Limits constrain execution; usage reports what actually happened.
+- [x] Cancellation and typed failures preserve partial run evidence.
+- [x] Default process and file adapters are bounded and safe.
+- [x] Context packs expose provenance, deterministic selection, costs, and drop reasons.
+- [x] Approximate token counts are visibly approximate.
 - [ ] LLAAB consumes the API without a final result cast or duplicated step lifecycle bookkeeping.
-- [ ] Model routing and application policy remain outside this package.
-- [ ] Tests prove determinism, isolation, budget enforcement, privacy defaults, and unsafe-path
+- [x] Model routing and application policy remain outside this package.
+- [x] Tests prove determinism, isolation, budget enforcement, privacy defaults, and unsafe-path
       rejection.
-- [ ] Any breaking API change is documented before release.
+- [x] Compatibility and deprecation notes are documented before release.
 - [ ] This file is renamed to `DONE_CONTEXT_PIPELINE_V1.md` when all required items are complete.
 
 ## References
 
 - [Project README](/README.md)
 - [Project roadmap](/docs/todo/ROADMAP.md)
-- [V0 architecture reference](/docs/reference/V0_ARCHITECTURE.md)
+- [V0 architecture reference](/docs/HARNESS_V0_REFERENCE.md)
 - [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 - [Anthropic: Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
 - [Anthropic: Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)

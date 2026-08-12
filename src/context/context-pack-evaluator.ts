@@ -36,11 +36,26 @@ export function evaluateContextPack<Content>(
 
   return {
     allSelectionsAccountedFor:
-      selectedIds.size === packedIds.size && [...selectedIds].every((id) => packedIds.has(id)),
-    budgetAdhered: pack.cost.tokens <= pack.budget.usableInputTokens && pack.budget.remainingInputTokens >= 0,
+      pack.selection.selectedCandidateIds.length === selectedIds.size &&
+      pack.candidates.length === packedIds.size &&
+      selectedIds.size === packedIds.size &&
+      [...selectedIds].every((id) => packedIds.has(id)),
+    budgetAdhered:
+      pack.cost.tokens <= pack.budget.usableInputTokens &&
+      pack.budget.remainingInputTokens >= 0 &&
+      Object.entries(pack.budget.categoryUsedTokens).every(
+        ([category, usedTokens]) =>
+          usedTokens <= (pack.budget.categoryMaxTokens[category] ?? Number.POSITIVE_INFINITY),
+      ),
     coverage,
-    provenanceComplete: pack.candidates.every(
-      ({ source }) => source.id.trim().length > 0 && source.kind.trim().length > 0,
-    ),
+    provenanceComplete: pack.candidates.every(({ id, source }) => {
+      const baseProvenanceComplete = source.id.trim().length > 0 && source.kind.trim().length > 0;
+      if (!id.includes(':chunk:')) return baseProvenanceComplete;
+      return (
+        baseProvenanceComplete &&
+        source.provenance?.parentCandidateId != null &&
+        source.provenance.parentSourceId != null
+      );
+    }),
   };
 }
