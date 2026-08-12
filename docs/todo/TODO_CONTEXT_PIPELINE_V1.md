@@ -188,42 +188,42 @@ step increments `startedSteps` and its terminal counter, but not `completedSteps
 - [x] Tests assert event order and duration shape without depending on wall-clock timing.
 - [x] Default events contain no source text, prompts, command output, or secrets.
 
-## Phase 3 — Harden Process and File Adapters
+## Phase 3 — Harden Process and File Adapters ✅
 
 ### Process execution
 
-- [ ] Replace the shell-string default with a structured request such as executable plus argument
+- [x] Replace the shell-string default with a structured request such as executable plus argument
       array.
-- [ ] Keep shell execution disabled by default; require an explicit opt-in when it is unavoidable.
-- [ ] Add timeout, `AbortSignal`, and maximum stdout/stderr byte limits.
-- [ ] Define truncation metadata instead of silently returning partial output.
-- [ ] Make environment inheritance and overrides explicit.
-- [ ] Define command and argument redaction for events and errors.
-- [ ] Update the typecheck step to use the structured process adapter.
-- [ ] Deprecate `runCommand(string, options)` rather than silently changing its semantics.
+- [x] Keep shell execution disabled by default; require an explicit opt-in when it is unavoidable.
+- [x] Add timeout, `AbortSignal`, and maximum stdout/stderr byte limits.
+- [x] Define truncation metadata instead of silently returning partial output.
+- [x] Make environment inheritance and overrides explicit.
+- [x] Define command and argument redaction for returned metadata.
+- [x] Update the typecheck step to use the structured process adapter.
+- [x] Deprecate `runCommand(string, options)` rather than silently changing its semantics.
 
 ### Project file access
 
-- [ ] Require one or more allowed roots for code-slice reads.
-- [ ] Resolve real paths and reject traversal or symlink escapes outside allowed roots.
-- [ ] Set maximum file and slice sizes.
-- [ ] Return typed outcomes for missing, unreadable, out-of-root, and truncated files.
-- [ ] Make accepted absolute-path behaviour explicit.
+- [x] Require one or more allowed roots for code-slice reads.
+- [x] Resolve real paths and reject traversal or symlink escapes outside allowed roots.
+- [x] Set maximum file and slice sizes.
+- [x] Return typed outcomes for missing, unreadable, out-of-root, and truncated files.
+- [x] Accept absolute paths only when their resolved real path is inside an allowed root.
 
 ### Diagnostic extraction
 
-- [ ] Strip ANSI sequences before parsing.
-- [ ] Support paths containing spaces.
-- [ ] Add fixtures for `.ts`, `.tsx`, `.mts`, and `.cts` diagnostics.
-- [ ] Preserve unmatched diagnostic output as a bounded fallback instead of silently losing it.
-- [ ] Keep compiler-specific parsing in an adapter, not in the generic pipeline core.
+- [x] Strip ANSI sequences before parsing.
+- [x] Support paths containing spaces.
+- [x] Add fixtures for `.ts`, `.tsx`, `.mts`, and `.cts` diagnostics.
+- [x] Preserve unmatched diagnostic output as a bounded fallback instead of silently losing it.
+- [x] Keep compiler-specific parsing in an adapter, not in the generic pipeline core.
 
 ### Exit criteria
 
-- [ ] Tests cover cancellation, timeout, non-zero exit, output truncation, spaces in paths, and
+- [x] Tests cover cancellation, timeout, non-zero exit, output truncation, spaces in paths, and
       environment overrides.
-- [ ] Tests prove that traversal and symlink escapes cannot read outside the configured roots.
-- [ ] The debug pipeline continues to produce its current structured payload for supported input.
+- [x] Tests prove that traversal and symlink escapes cannot read outside the configured roots.
+- [x] The debug pipeline continues to produce its current structured payload for supported input.
 
 ## Phase 4 — Introduce Provider-Neutral Context-Pack Primitives
 

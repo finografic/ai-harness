@@ -1,5 +1,7 @@
 import type { HarnessStep } from '../core/types';
 
+import { parseTypeScriptDiagnostics } from '../adapters/typescript-diagnostics';
+
 export interface TypeScriptError {
   code: string;
   file: string;
@@ -10,31 +12,17 @@ export interface TypeScriptError {
 
 export interface ExtractedErrors {
   errors: TypeScriptError[];
+  unmatchedOutput?: string;
+  unmatchedOutputTruncated?: true;
 }
 
 export interface RawTypecheckResult {
   raw: string;
 }
 
-const typeScriptErrorPattern = /([^\s()]+\.(?:cts|mts|ts|tsx))\((\d+),(\d+)\): error (TS\d+): (.+)/g;
-
 export const extractErrorsStep: HarnessStep<RawTypecheckResult, ExtractedErrors> = {
   name: 'extract-errors',
   async run(input) {
-    const errors: TypeScriptError[] = [];
-
-    for (const match of input.raw.matchAll(typeScriptErrorPattern)) {
-      const [, file, line, column, code, message] = match;
-
-      errors.push({
-        code,
-        file,
-        line: Number(line),
-        column: Number(column),
-        message,
-      });
-    }
-
-    return { errors };
+    return parseTypeScriptDiagnostics(input.raw);
   },
 };

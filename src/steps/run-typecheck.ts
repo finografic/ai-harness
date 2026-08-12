@@ -1,6 +1,6 @@
 import type { HarnessStep } from '../core/types';
 
-import { runCommand } from '../utils/exec';
+import { runProcess } from '../utils/exec';
 
 export interface TypecheckResult {
   command: string;
@@ -11,9 +11,11 @@ export interface TypecheckResult {
 export const runTypecheckStep: HarnessStep<unknown, TypecheckResult> = {
   name: 'run-typecheck',
   async run(_input, context) {
-    const commandResult = await runCommand({
-      command: 'pnpm typecheck',
+    const commandResult = await runProcess({
+      arguments: ['typecheck'],
       cwd: context.cwd,
+      file: 'pnpm',
+      signal: context.signal,
     });
 
     return {

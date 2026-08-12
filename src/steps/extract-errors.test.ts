@@ -37,4 +37,30 @@ describe('extractErrorsStep', () => {
       ],
     });
   });
+
+  it('handles ANSI output, paths with spaces, module extensions, and unmatched lines', async () => {
+    const result = await extractErrorsStep.run(
+      {
+        raw: [
+          '\u001B[31msrc/path with spaces/example.tsx(2,4): error TS1000: Example error.\u001B[0m',
+          'src/module.mts(3,5): error TS1001: MTS error.',
+          'src/module.cts(4,6): error TS1002: CTS error.',
+          'compiler summary retained',
+        ].join('\n'),
+      },
+      {
+        budget: { steps: 0 },
+        cwd: process.cwd(),
+        trace: [],
+      },
+    );
+
+    expect(result.errors.map(({ file }) => file)).toEqual([
+      'src/path with spaces/example.tsx',
+      'src/module.mts',
+      'src/module.cts',
+    ]);
+    expect(result.unmatchedOutput).toBe('compiler summary retained');
+    expect(result.unmatchedOutputTruncated).toBeUndefined();
+  });
 });

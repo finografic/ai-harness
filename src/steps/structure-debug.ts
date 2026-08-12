@@ -9,11 +9,14 @@ export interface StructuredDebugError {
   code: string;
   message: string;
   snippet: string;
+  sourceTruncated?: true;
 }
 
 export interface StructuredDebugPayload {
   task: 'fix-type-errors';
   errors: StructuredDebugError[];
+  unmatchedOutput?: string;
+  unmatchedOutputTruncated?: true;
 }
 
 function toStructuredDebugError(error: SlicedError): StructuredDebugError {
@@ -25,6 +28,7 @@ function toStructuredDebugError(error: SlicedError): StructuredDebugError {
     code: error.code,
     message: error.message,
     snippet: error.excerpt.snippet,
+    ...(error.sourceTruncated === true ? { sourceTruncated: true as const } : {}),
   };
 }
 
@@ -34,6 +38,8 @@ export const structureDebugStep: HarnessStep<SlicedErrors, StructuredDebugPayloa
     return {
       task: 'fix-type-errors',
       errors: input.errors.map(toStructuredDebugError),
+      ...(input.unmatchedOutput == null ? {} : { unmatchedOutput: input.unmatchedOutput }),
+      ...(input.unmatchedOutputTruncated === true ? { unmatchedOutputTruncated: true as const } : {}),
     };
   },
 };

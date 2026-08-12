@@ -39,8 +39,18 @@ export type { CodeExcerpt, SliceCodeParams, SlicedError, SlicedErrors } from './
 export { structureDebugStep } from './steps/structure-debug';
 export type { StructuredDebugError, StructuredDebugPayload } from './steps/structure-debug';
 
-export { readTextFile } from './utils/fs';
-export type { ReadTextFileParams } from './utils/fs';
+export { ProjectFileReadError, readProjectTextFile, readTextFile } from './utils/fs';
+export type {
+  ProjectFileReadFailure,
+  ProjectFileReadFailureReason,
+  ProjectFileReadResult,
+  ProjectFileReadSuccess,
+  ReadProjectTextFileParams,
+  ReadTextFileParams,
+} from './utils/fs';
 
-export { runCommand } from './utils/exec';
-export type { CommandResult, RunCommandParams } from './utils/exec';
+export { runCommand, runProcess } from './utils/exec';
+export type { CommandResult, RunCommandParams, RunProcessParams } from './utils/exec';
+
+export { parseTypeScriptDiagnostics, stripAnsi } from './adapters/typescript-diagnostics';
+export type { ParsedTypeScriptDiagnostics } from './adapters/typescript-diagnostics';
