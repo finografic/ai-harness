@@ -5,7 +5,23 @@ export interface HarnessStep<Input, Output> {
   run(input: Input, context: HarnessContext): Promise<Output>;
 }
 
-export interface HarnessPipeline {
-  steps: Array<HarnessStep<unknown, unknown>>;
+export type AnyHarnessStep = HarnessStep<never, unknown>;
+
+export interface HarnessPipeline<
+  Input = unknown,
+  Output = unknown,
+  Steps extends readonly AnyHarnessStep[] = readonly AnyHarnessStep[],
+> {
+  readonly steps: Steps;
+  run(input: Input, context?: HarnessContext): Promise<Output>;
+}
+
+export interface DynamicHarnessStep {
+  name: string;
+  run(input: unknown, context: HarnessContext): Promise<unknown>;
+}
+
+export interface DynamicHarnessPipeline {
+  readonly steps: readonly DynamicHarnessStep[];
   run(input: unknown, context?: HarnessContext): Promise<unknown>;
 }
