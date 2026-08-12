@@ -158,7 +158,7 @@ step increments `startedSteps` and its terminal counter, but not `completedSteps
 - [x] Tests cover success, step failure, pre-abort, mid-run cancellation, deadline, step limit,
       repeated use, and concurrent use.
 
-## Phase 2 — Add a Stable Run-Event Model
+## Phase 2 — Add a Stable Run-Event Model ✅
 
 - [x] Replace the name/timestamp-only trace with lifecycle events while retaining the legacy trace
       for compatibility.
@@ -176,7 +176,7 @@ step increments `startedSteps` and its terminal counter, but not `completedSteps
 - [x] Keep an in-memory event list available for small runs and tests.
 - [x] Exclude payload and content capture from the event model; callers must use a separate,
       explicitly governed channel if they need content telemetry.
-- [ ] Provide a small LLAAB adapter or mapping example so `ControlStage` does not require a second,
+- [x] Provide a structural LLAAB adapter so `ControlStage` does not require a second,
       manually maintained lifecycle implementation.
 - [x] Treat OpenTelemetry GenAI and CLI semantic conventions as adapter targets while they remain
       development-stage conventions; do not copy unstable attribute names into core types.
@@ -290,20 +290,22 @@ Define a small set of data contracts before extracting algorithms:
 - [ ] No provider SDK, extraction schema, or LLAAB control policy has moved into the harness.
 - [ ] The package API is validated by a real consumer before further generalisation.
 
-## Phase 6 — Evaluation and Observability Fixtures
+## Phase 6 — Evaluation and Observability Fixtures ✅
 
-- [ ] Add deterministic evaluation fixtures for:
+- [x] Add deterministic evaluation fixtures for:
   - context coverage
   - provenance preservation
   - dropped-item reasons
   - budget adherence
   - idempotency
   - cancellation and partial-run records
-- [ ] Keep evaluators separate from the pipeline that produced the pack.
-- [ ] Add a machine-readable run record suitable for snapshot tests and later telemetry adapters.
-- [ ] Normalise nondeterministic fields before snapshots rather than omitting useful lifecycle data.
-- [ ] Define a privacy test proving default run records exclude raw context and command output.
-- [ ] Consider an OpenTelemetry adapter only after the internal event contract is proven and the
+- [x] Keep evaluators separate from the pipeline that produced the pack.
+- [x] Add a machine-readable run record suitable for snapshot tests and later telemetry adapters.
+- [x] Normalise nondeterministic fields before snapshots rather than omitting useful lifecycle data.
+- [x] Define a privacy test proving default run records exclude raw context, working paths, and
+      command output.
+- [x] Defer an OpenTelemetry adapter until the internal event contract is proven in a consumer and
+      the
       target semantic conventions are sufficiently stable.
 
 ## Explicit Non-Goals

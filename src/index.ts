@@ -25,6 +25,9 @@ export type {
   HarnessStep,
 } from './core/types';
 
+export { createHarnessRunRecord, normaliseHarnessRunRecord } from './core/run-record';
+export type { HarnessRecordedLimits, HarnessRunRecord } from './core/run-record';
+
 export { debugPipeline } from './pipelines/debug.pipeline';
 
 export { extractErrorsStep } from './steps/extract-errors';
@@ -55,6 +58,9 @@ export type { CommandResult, RunCommandParams, RunProcessParams } from './utils/
 export { parseTypeScriptDiagnostics, stripAnsi } from './adapters/typescript-diagnostics';
 export type { ParsedTypeScriptDiagnostics } from './adapters/typescript-diagnostics';
 
+export { harnessEventsToControlStages } from './adapters/control-stage';
+export type { HarnessControlStage } from './adapters/control-stage';
+
 export {
   characterChunkStrategy,
   chunkTextCandidate,
@@ -68,6 +74,13 @@ export type {
 
 export { prepareContextPack } from './context/context-pack';
 export type { PrepareContextPackParams } from './context/context-pack';
+
+export { evaluateContextPack } from './context/context-pack-evaluator';
+export type {
+  ContextCoverageEvaluation,
+  ContextPackEvaluation,
+  EvaluateContextPackParams,
+} from './context/context-pack-evaluator';
 
 export type {
   ContextBudget,
