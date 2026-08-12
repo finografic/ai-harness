@@ -1,4 +1,11 @@
-import type { HarnessContext } from './context';
+import type { HarnessContext, HarnessEventSink, HarnessRunLimits } from './context';
+
+export interface HarnessRunOptions {
+  eventSink?: HarnessEventSink;
+  limits?: HarnessRunLimits;
+  runId?: string;
+  signal?: AbortSignal;
+}
 
 export interface HarnessStep<Input, Output> {
   name: string;
@@ -13,7 +20,7 @@ export interface HarnessPipeline<
   Steps extends readonly AnyHarnessStep[] = readonly AnyHarnessStep[],
 > {
   readonly steps: Steps;
-  run(input: Input, context?: HarnessContext): Promise<Output>;
+  run(input: Input, context?: HarnessContext, options?: HarnessRunOptions): Promise<Output>;
 }
 
 export interface DynamicHarnessStep {
@@ -23,5 +30,5 @@ export interface DynamicHarnessStep {
 
 export interface DynamicHarnessPipeline {
   readonly steps: readonly DynamicHarnessStep[];
-  run(input: unknown, context?: HarnessContext): Promise<unknown>;
+  run(input: unknown, context?: HarnessContext, options?: HarnessRunOptions): Promise<unknown>;
 }

@@ -1,7 +1,19 @@
 export { createContext } from './core/context';
-export type { CreateContextParams, HarnessBudget, HarnessContext, HarnessTrace } from './core/context';
+export type {
+  CreatedHarnessContext,
+  CreateContextParams,
+  HarnessBudget,
+  HarnessContext,
+  HarnessEventSink,
+  HarnessFailureKind,
+  HarnessRunEvent,
+  HarnessRunLimits,
+  HarnessStepEventStatus,
+  HarnessTrace,
+  HarnessUsage,
+} from './core/context';
 
-export { createDynamicPipeline, createPipeline } from './core/pipeline';
+export { createDynamicPipeline, createPipeline, HarnessRunError } from './core/pipeline';
 export type { CreateDynamicPipelineParams, CreatePipelineParams, HarnessStepTuple } from './core/pipeline';
 
 export type {
@@ -9,6 +21,7 @@ export type {
   DynamicHarnessPipeline,
   DynamicHarnessStep,
   HarnessPipeline,
+  HarnessRunOptions,
   HarnessStep,
 } from './core/types';
 

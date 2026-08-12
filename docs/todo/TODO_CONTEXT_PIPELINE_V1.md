@@ -113,7 +113,7 @@ deprecated surface yet.
       demonstrates duplicated consumer stage reporting.
 - [x] The intended v1 compatibility strategy is recorded in this file or an accepted spec.
 
-## Phase 1 — Make Pipeline Execution Typed and Bounded
+## Phase 1 — Make Pipeline Execution Typed and Bounded ✅
 
 ### Typed composition
 
@@ -127,40 +127,43 @@ deprecated surface yet.
 
 ### Limits and cancellation
 
-- [ ] Split configured limits from observed usage, for example:
+- [x] Split configured limits from observed usage, for example:
   - `limits.maxSteps`
   - `limits.deadline`
   - `usage.completedSteps`
-- [ ] Enforce a step limit before starting the next step.
-- [ ] Accept an `AbortSignal` at run level and expose it to every step.
-- [ ] Define whether deadlines are converted into cancellation signals or checked between steps.
-- [ ] Ensure a fresh context and usage record per run unless a caller explicitly supplies one.
-- [ ] Prove that reusing one pipeline concurrently does not leak trace or budget state between runs.
+- [x] Enforce a step limit before starting the next step.
+- [x] Accept an `AbortSignal` at run level and expose it to every step.
+- [x] Convert deadlines into cancellation signals and check them at step boundaries.
+- [x] Ensure a fresh context and usage record per run unless a caller explicitly supplies one.
+- [x] Prove that reusing one pipeline concurrently does not leak trace or budget state between runs.
 
 ### Failure semantics
 
-- [ ] Define a typed `HarnessRunError` that retains:
+- [x] Define a typed `HarnessRunError` that retains:
   - failing step name and index
   - original cause
   - partial trace
   - measured usage
   - cancellation or limit reason when applicable
-- [ ] Do not swallow step errors or replace their causes with formatted strings.
-- [ ] Specify whether a failed step increments started-step usage, completed-step usage, or both.
+- [x] Do not swallow step errors or replace their causes with formatted strings.
+- [x] Specify whether a failed step increments started-step usage, completed-step usage, or both.
+
+Usage counts started, completed, failed, and cancelled steps independently. A failed or cancelled
+step increments `startedSteps` and its terminal counter, but not `completedSteps`.
 
 ### Exit criteria
 
-- [ ] A composed pipeline returns its inferred final type.
-- [ ] Type tests reject an incompatible step chain.
-- [ ] Tests cover success, step failure, pre-abort, mid-run cancellation, deadline, step limit,
+- [x] A composed pipeline returns its inferred final type.
+- [x] Type tests reject an incompatible step chain.
+- [x] Tests cover success, step failure, pre-abort, mid-run cancellation, deadline, step limit,
       repeated use, and concurrent use.
 
 ## Phase 2 — Add a Stable Run-Event Model
 
-- [ ] Replace the name/timestamp-only trace with lifecycle events or derive the legacy trace from
-      them.
-- [ ] Give every run a stable run ID supplied by the caller or generated at the boundary.
-- [ ] Emit step lifecycle data with at least:
+- [x] Replace the name/timestamp-only trace with lifecycle events while retaining the legacy trace
+      for compatibility.
+- [x] Give every run a stable run ID supplied by the caller or generated at the boundary.
+- [x] Emit step lifecycle data with at least:
   - run ID
   - step name and index
   - `started`, `completed`, `failed`, or `cancelled` status
@@ -168,21 +171,22 @@ deprecated surface yet.
   - duration
   - usage snapshot
   - structured failure classification without raw prompt or source content
-- [ ] Support an optional event sink so consumers can stream events without coupling the core to a
+- [x] Support an optional event sink so consumers can stream events without coupling the core to a
       logger or telemetry vendor.
-- [ ] Keep an in-memory event list available for small runs and tests.
-- [ ] Define redaction rules and make payload/content capture explicitly opt-in.
+- [x] Keep an in-memory event list available for small runs and tests.
+- [x] Exclude payload and content capture from the event model; callers must use a separate,
+      explicitly governed channel if they need content telemetry.
 - [ ] Provide a small LLAAB adapter or mapping example so `ControlStage` does not require a second,
       manually maintained lifecycle implementation.
-- [ ] Treat OpenTelemetry GenAI and CLI semantic conventions as adapter targets while they remain
+- [x] Treat OpenTelemetry GenAI and CLI semantic conventions as adapter targets while they remain
       development-stage conventions; do not copy unstable attribute names into core types.
 
 ### Exit criteria
 
-- [ ] Every started step has one terminal event.
-- [ ] Failure results retain events emitted before the failure.
-- [ ] Tests assert event order and duration shape without depending on wall-clock timing.
-- [ ] Default events contain no source text, prompts, command output, or secrets.
+- [x] Every started step has one terminal event, including when an observational event sink fails.
+- [x] Failure results retain events emitted before the failure.
+- [x] Tests assert event order and duration shape without depending on wall-clock timing.
+- [x] Default events contain no source text, prompts, command output, or secrets.
 
 ## Phase 3 — Harden Process and File Adapters
 
