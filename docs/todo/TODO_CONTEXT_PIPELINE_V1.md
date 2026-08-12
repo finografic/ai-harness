@@ -225,46 +225,48 @@ step increments `startedSteps` and its terminal counter, but not `completedSteps
 - [x] Tests prove that traversal and symlink escapes cannot read outside the configured roots.
 - [x] The debug pipeline continues to produce its current structured payload for supported input.
 
-## Phase 4 — Introduce Provider-Neutral Context-Pack Primitives
+## Phase 4 — Introduce Provider-Neutral Context-Pack Primitives ✅
 
 Define a small set of data contracts before extracting algorithms:
 
-- [ ] `ContextSource` — stable ID, kind, location, freshness, trust, sensitivity, and provenance.
-- [ ] `ContextCandidate<T>` — source plus structured content and optional caller-owned relevance.
-- [ ] `ContextCost` — characters, bytes, and optional token count with `exact` or `estimated` method.
-- [ ] `ContextBudget` — total limit, reserved output capacity, and optional per-category limits.
-- [ ] `ContextSelection` — selected and dropped candidate IDs with explicit reasons.
-- [ ] `ContextPack<T>` — ordered selected content, provenance, costs, budget summary, and policy ID.
-- [ ] `TokenCounter` — injected interface; no provider SDK in the core package.
+- [x] `ContextSource` — stable ID, kind, location, freshness, trust, sensitivity, and provenance.
+- [x] `ContextCandidate<T>` — source plus structured content and optional caller-owned relevance.
+- [x] `ContextCost` — characters, bytes, and token count with `exact` or `estimated` method.
+- [x] `ContextBudget` — total limit, reserved output capacity, and optional per-category limits.
+- [x] `ContextSelection` — selected and dropped candidate IDs with explicit reasons.
+- [x] `ContextPack<T>` — ordered selected content, provenance, costs, budget summary, and policy ID.
+- [x] `TokenCounter` — injected interface; no provider SDK in the core package.
 
 ### Deterministic preparation
 
-- [ ] Provide composable transforms for normalising, filtering, budgeting, selecting, and ordering
+- [x] Provide composable transforms for normalising, filtering, budgeting, selecting, and ordering
       candidates.
-- [ ] Require stable tie-breakers so equal scores produce deterministic order.
-- [ ] Keep scoring caller-supplied; do not add LLM ranking or embeddings to the core.
-- [ ] Return a reason for every dropped candidate, such as duplicate, filtered, over budget, or
+- [x] Require stable tie-breakers so equal scores produce deterministic order.
+- [x] Keep scoring caller-supplied; do not add LLM ranking or embeddings to the core.
+- [x] Return a reason for every dropped candidate, such as duplicate, filtered, over budget, or
       invalid.
-- [ ] Preserve source and parent IDs when a candidate is chunked.
-- [ ] Allow chunk strategies to respect caller-defined boundaries and overlap.
-- [ ] Never make character slicing the only chunking strategy.
-- [ ] Return structured packs; leave prompt-string rendering to the caller.
-- [ ] Make policies serialisable or identifiable so a result records how it was produced.
+- [x] Preserve source and parent IDs when a candidate is chunked.
+- [x] Allow chunk strategies to respect caller-defined boundaries and overlap.
+- [x] Provide both character and paragraph-aware strategies, while accepting caller-defined
+      strategies.
+- [x] Return structured packs; leave prompt-string rendering to the caller.
+- [x] Identify every preparation policy in its result through `policyId`.
 
 ### Token accounting
 
-- [ ] Support exact counters supplied by a model/provider adapter.
-- [ ] Supply an explicitly labelled heuristic counter only if a dependency-free fallback is useful.
-- [ ] Include reserved response capacity when determining the usable input budget.
-- [ ] Record counter name/version and whether each result is exact or estimated.
-- [ ] Define behaviour when token counting fails; do not silently fall back without metadata.
+- [x] Support exact counters supplied by a model/provider adapter.
+- [x] Supply an explicitly labelled heuristic character counter.
+- [x] Include reserved response capacity when determining the usable input budget.
+- [x] Record counter name/version and whether each result is exact or estimated.
+- [x] Fail with `TokenCountError` when counting fails; fallback requires the caller to inject an
+      explicitly identified fallback counter.
 
 ### Exit criteria
 
-- [ ] Repeated preparation of the same candidates and policy produces the same pack.
-- [ ] Pack cost never exceeds its enforceable input budget.
-- [ ] Every selected and dropped item remains auditable by stable ID and reason.
-- [ ] Tests cover exact and estimated counters, ties, duplicates, chunk provenance, budget edges,
+- [x] Repeated preparation of the same candidates and policy produces the same pack.
+- [x] Pack cost never exceeds its enforceable input budget.
+- [x] Every selected and dropped item remains auditable by stable ID and reason.
+- [x] Tests cover exact and estimated counters, ties, duplicates, chunk provenance, budget edges,
       and counter failure.
 
 ## Phase 5 — Extract the Proven LLAAB Preparation Logic

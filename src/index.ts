@@ -54,3 +54,40 @@ export type { CommandResult, RunCommandParams, RunProcessParams } from './utils/
 
 export { parseTypeScriptDiagnostics, stripAnsi } from './adapters/typescript-diagnostics';
 export type { ParsedTypeScriptDiagnostics } from './adapters/typescript-diagnostics';
+
+export {
+  characterChunkStrategy,
+  chunkTextCandidate,
+  paragraphChunkStrategy,
+} from './context/context-chunker';
+export type {
+  ChunkTextCandidateParams,
+  TextChunkBoundary,
+  TextChunkStrategy,
+} from './context/context-chunker';
+
+export { prepareContextPack } from './context/context-pack';
+export type { PrepareContextPackParams } from './context/context-pack';
+
+export type {
+  ContextBudget,
+  ContextBudgetSummary,
+  ContextCandidate,
+  ContextCost,
+  ContextDropReason,
+  ContextPack,
+  ContextPackCost,
+  ContextProvenance,
+  ContextSelection,
+  ContextSensitivity,
+  ContextSource,
+  ContextTrust,
+  DroppedContextCandidate,
+  PackedContextCandidate,
+  TokenCount,
+  TokenCounterIdentity,
+  TokenCountMethod,
+} from './context/context-pack.types';
+
+export { createCharacterHeuristicTokenCounter, TokenCountError } from './context/token-counter';
+export type { CharacterHeuristicTokenCounterParams, TokenCounter } from './context/token-counter';
