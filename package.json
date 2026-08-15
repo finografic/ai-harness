@@ -1,7 +1,7 @@
 {
   "name": "@finografic/ai-harness",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deterministic, composable harness pipeline for preprocessing inputs before LLM usage. Extract → reduce → structure → (optional) LLM.",
   "homepage": "https://github.com/finografic/ai-harness",
   "repository": {
